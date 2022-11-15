@@ -1,7 +1,7 @@
-import { TestFieldArray } from "./TestFieldArray/TestFieldArray";
+import { Association } from "./NewsletterAssociationForm/Association";
 
 const App = () => {
-  return <TestFieldArray />;
+  return <Association />;
 };
 
 export default App;

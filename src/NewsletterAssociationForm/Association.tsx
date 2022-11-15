@@ -8,10 +8,8 @@ import { VariationForm, VariationFormValues } from "./VariationForm";
 const variations = ["FR", "EN", "ES"] as const;
 export type variationsType = typeof variations;
 
-export function TestFieldArray() {
-  const [association, setAssociation] = useState<
-    Record<variationsType[number], VariationFormValues>
-  >({
+export function Association() {
+  const [association, setAssociation] = useState<Record<variationsType[number], VariationFormValues>>({
     FR: {
       titleNewsletter: "",
       mailSubject: "",
@@ -36,17 +34,9 @@ export function TestFieldArray() {
     });
   };
 
-  console.log("asd");
-
-  const selectedVariationKey = Object.keys(association).find(
-    (variation) => variation === selectedVariation
-  );
+  const selectedVariationKey = Object.keys(association).find((variation) => variation === selectedVariation);
   // @ts-ignore
   const selectedVariationData = selectedVariationKey ? association[selectedVariationKey] : null;
-
-  // get seconds of current time
-  const seconds = new Date().getSeconds();
-  const oui = seconds % 5 === 0;
 
   return (
     <div>
