@@ -106,7 +106,7 @@ let renderCount = 0;
 type VariationFormProps = {
   title: string;
   content: VariationFormValues;
-  onSubmit: (data: Partial<Record<variationsType[number], VariationFormValues>>) => void;
+  onSubmit: (data: Partial<Map<variationsType[number], VariationFormValues>>) => void;
 };
 
 export const VariationForm: FC<VariationFormProps> = ({ title, onSubmit, content }) => {
@@ -134,6 +134,7 @@ export const VariationForm: FC<VariationFormProps> = ({ title, onSubmit, content
   });
 
   renderCount++;
+  console.log(renderCount);
 
   return (
     <div>
@@ -143,7 +144,7 @@ export const VariationForm: FC<VariationFormProps> = ({ title, onSubmit, content
           onSubmit={handleSubmit(
             (data) => {
               setData(data);
-              onSubmit({ FR: data });
+              onSubmit({ [`${title}`]: data });
               console.log("Submit data", data);
               console.log(errors);
             },

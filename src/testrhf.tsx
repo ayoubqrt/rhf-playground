@@ -15,10 +15,11 @@ type MainFlashInfo = {
   description: string;
 };
 
-const ArticleFormZod: z.ZodType<ArticleForm> = z.object({
+let ArticleFormZod: z.ZodType<ArticleForm> = z.object({
   title: z.string(),
   description: z.string(),
 });
+
 
 const MainFlashInfoZod: z.ZodType<MainFlashInfo> = z.object({
   title: z.string(),

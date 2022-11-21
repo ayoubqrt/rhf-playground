@@ -9,26 +9,10 @@ const variations = ["FR", "EN", "ES"] as const;
 export type variationsType = typeof variations;
 
 export function Association() {
-  const [association, setAssociation] = useState<Record<variationsType[number], VariationFormValues>>({
-    FR: {
-      titleNewsletter: "",
-      mailSubject: "",
-      elements: [],
-    },
-    EN: {
-      titleNewsletter: "",
-      mailSubject: "",
-      elements: [],
-    },
-    ES: {
-      titleNewsletter: "",
-      mailSubject: "",
-      elements: [],
-    },
-  });
+  const [association, setAssociation] = useState<Map<variationsType[number], VariationFormValues>>(new Map());
   const [selectedVariation, setSelectedVariation] = useState<string>("FR");
 
-  const handleSubmit = (data: Partial<Record<variationsType[number], VariationFormValues>>) => {
+  const handleSubmit = (data: Partial<Map<variationsType[number], VariationFormValues>>) => {
     setAssociation((prev) => {
       return { ...prev, ...data };
     });

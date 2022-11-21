@@ -2,6 +2,13 @@ import { FC } from "react";
 import { FieldArrayWithId, useFieldArray, useFormContext } from "react-hook-form";
 import { ErrorLabel } from "../components/ErrorLabel";
 import { ArticleElements, OneOrMultipleColumns, VariationFormValues } from "./VariationForm";
+import {
+  Dropdown,
+  DropdownMenuItemType,
+  IDropdownStyles,
+  IDropdownOption,
+} from "@fluentui/react/lib/Dropdown";
+import { ControlledDropdown } from "../components/ControlledDropdown";
 
 type OneColumnBlocProps = {
   index: number;
@@ -14,11 +21,20 @@ export type NewVariationFormValues = {
   elements: OneOrMultipleColumns[];
 };
 
-export const OneOrMultipleColumnsBloc: FC<OneColumnBlocProps> = ({ index, field }) => {
-  if (field.kind !== "oneColumn" && field.kind !== "twoColumns") {
-    return null;
-  }
+const options: IDropdownOption[] = [
+  { key: "fruitsHeader", text: "Fruits", itemType: DropdownMenuItemType.Header },
+  { key: "apple", text: "Apple" },
+  { key: "banana", text: "Banana" },
+  { key: "orange", text: "Orange", disabled: true },
+  { key: "grape", text: "Grape" },
+  { key: "divider_1", text: "-", itemType: DropdownMenuItemType.Divider },
+  { key: "vegetablesHeader", text: "Vegetables", itemType: DropdownMenuItemType.Header },
+  { key: "broccoli", text: "Broccoli" },
+  { key: "carrot", text: "Carrot" },
+  { key: "lettuce", text: "Lettuce" },
+];
 
+export const OneOrMultipleColumnsBloc: FC<OneColumnBlocProps> = ({ index, field }) => {
   const {
     register,
     formState: { errors, isSubmitted },
@@ -51,13 +67,22 @@ export const OneOrMultipleColumnsBloc: FC<OneColumnBlocProps> = ({ index, field 
                 error={errors?.elements?.[index]?.articles?.[oneColumnArticleIndex]?.title?.message}
               />
             </label>
-            <label>
+            {/* <label>
               <span>subject</span>
               <input {...register(`elements.${index}.articles.${oneColumnArticleIndex}.subject`)} />
               <ErrorLabel
                 error={errors?.elements?.[index]?.articles?.[oneColumnArticleIndex]?.subject?.message}
               />
-            </label>
+            </label> */}
+            <ControlledDropdown
+              required={true}
+              options={options}
+              label="This is a required dropdown"
+              control={control}
+              name={`elements.${index}.articles.${oneColumnArticleIndex}.subject`}
+              placeholder="Select a value"
+              rules={{ required: "Please select a value" }}
+            />
           </section>
         );
       })}
